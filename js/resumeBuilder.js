@@ -10,9 +10,8 @@ var bio = {
     "location" : "Sunrise, FL"
   },
   "welcomeMessage": "Innovation through automation.",
-  "skills" : [
-    "Being Awesome", "Quick Learner", "HTML", "CSS"],
-  "bioPic" :"images/me.jpg"
+  "skills" : ["Being Awesome", "Quick Learner", "HTML", "CSS"],
+  "biopic" :"images/me.jpg"
 };
 
 //Work section
@@ -96,34 +95,35 @@ var education = {
 };
 
 //Creating all the content in top bio part
-var formattedName = HTMLheaderName.replace("%data%", bio.name);
-var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-var formattedBioPic = HTMLbioPic.replace("%data%", bio.bioPic);
-var formattedWelcomeMsg = HTMLWelcomeMsg.replace("%data%", bio.welcomeMessage);
-var formattedContactInfo = [];
-formattedContactInfo.push(HTMLemail.replace("%data%", bio.contacts.email));
-formattedContactInfo.push(HTMLmobile.replace("%data%", bio.contacts.mobile));
-formattedContactInfo.push(HTMLgithub.replace("%data%", bio.contacts.github));
-formattedContactInfo.push(HTMLtwitter.replace("%data%", bio.contacts.twitter));
-formattedContactInfo.push(HTMLlocation.replace("%data%", bio.contacts.location));
+bio.display = function(){
+  var formattedName = HTMLheaderName.replace("%data%", bio.name);
+  var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
+  var formattedbioPic = HTMLbioPic.replace("%data%", bio.biopic);
+  var formattedWelcomeMsg = HTMLWelcomeMsg.replace("%data%", bio.welcomeMessage);
+  var formattedContactInfo = [];
+  formattedContactInfo.push(HTMLemail.replace("%data%", bio.contacts.email));
+  formattedContactInfo.push(HTMLmobile.replace("%data%", bio.contacts.mobile));
+  formattedContactInfo.push(HTMLgithub.replace("%data%", bio.contacts.github));
+  formattedContactInfo.push(HTMLtwitter.replace("%data%", bio.contacts.twitter));
+  formattedContactInfo.push(HTMLlocation.replace("%data%", bio.contacts.location));
 
-//Adding top bio to the Resume
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
-$("#header").append(formattedBioPic);
-$("#header").append(formattedWelcomeMsg);
-if(bio.skills.length > 0) {
-	$("#header").append(HTMLskillsStart);
-	for( var i = 0; i < bio.skills.length; i++ ) {
-  	$("#skills").append(HTMLskills.replace("%data%", bio.skills[i]));
-	}
-}
+  //Adding top bio to the Resume
+  $("#header").prepend(formattedRole);
+  $("#header").prepend(formattedName);
+  $("#header").append(formattedbioPic);
+  $("#header").append(formattedWelcomeMsg);
+  if(bio.skills.length > 0) {
+	   $("#header").append(HTMLskillsStart);
+	    for( var i = 0; i < bio.skills.length; i++ ) {
+  	     $("#skills").append(HTMLskills.replace("%data%", bio.skills[i]));
+	      }
+      }
 
-//Add the contact info
-for(var j = 0; j < formattedContactInfo.length; j++) {
-	$("#topContacts").append(formattedContactInfo[j]);
-	$("#footerContacts").append(formattedContactInfo[j]);
-}
+  //Add the contact info
+  for(var j = 0; j < formattedContactInfo.length; j++) {
+	   $("#topContacts, #footerContacts").append(formattedContactInfo[j]);
+  }
+};
 
 //add the work experiances to resume
 work.display = function() {
@@ -143,7 +143,6 @@ work.display = function() {
 		}
 	}
 };
-work.display();
 
 //Add Projects to resume
 projects.display = function() {
@@ -156,14 +155,13 @@ projects.display = function() {
 			$(".project-entry:last").append(formattedProjectTitle);
 			$(".project-entry:last").append(formattedProjectDates);
 			$(".project-entry:last").append(formattedProjectDescription);
-			for(var img in projects.projects[l].images) {
-				var formattedProjectImage = HTMLprojectImage.replace("%data%", projects.projects[l].images[img]);
+      for(var f = 0; f < projects.projects[l].images.length; f++) {
+        var formattedProjectImage = HTMLprojectImage.replace("%data%", projects.projects[l].images[f]);
 				$(".project-entry:last").append(formattedProjectImage);
-			}
+      }
 		}
 	}
 };
-projects.display();
 
 //adds Education to the resume
 education.display = function() {
@@ -197,9 +195,6 @@ education.display = function() {
 		}
 	}
 };
-
-education.display();
-
 
 $("#mapDiv").append(googleMap);
 
